@@ -1,17 +1,27 @@
-import React from 'react';
+import React, { Suspense } from 'react';
+import { BrowserRouter as Router, Route, Link, NavLink, Switch } from 'react-router-dom';
 // Scss
 import './App.scss';
+import { theme } from './core/theme';
 // Component
 import { HomePage } from './pages/home/Home.page';
 // Mat
 import { ThemeProvider } from '@material-ui/core/styles';
-import { theme } from './core/theme';
+import { LoginPage } from './pages/login/Login.page';
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <HomePage></HomePage>
+      <Router>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route path="/login" component={LoginPage} />
+          </Switch>
+        </Suspense>
+      </Router>
     </ThemeProvider>
+
   );
 }
 
