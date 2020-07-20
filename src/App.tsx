@@ -1,13 +1,17 @@
 import React from 'react';
-import logo from './logo.svg';
+// Scss
 import './App.scss';
+// Component
 import { HomePage } from './pages/home/Home.page';
+// Mat
+import { ThemeProvider } from '@material-ui/core/styles';
+import { theme } from './core/theme';
 
 function App() {
   return (
-    <div className="App">
+    <ThemeProvider theme={theme}>
       <HomePage></HomePage>
-    </div>
+    </ThemeProvider>
   );
 }
 
