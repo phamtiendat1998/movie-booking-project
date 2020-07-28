@@ -4,6 +4,7 @@ import './Nav.component.scss';
 // Mat
 import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
+import { NavLink } from 'react-router-dom';
 
 export interface NavComponentProps {
 }
@@ -17,7 +18,7 @@ export default class NavComponent extends React.Component<NavComponentProps, Nav
         super(props);
 
         this.state = {
-            navStatus: 'menu'
+            navStatus: 'info'
         }
     }
 
@@ -39,12 +40,12 @@ export default class NavComponent extends React.Component<NavComponentProps, Nav
             bindNavView =
                 <div className="nav__menu">
                     <div>
-                        <div className="nav__item nav__item--active">
+                        <NavLink exact to="/" className="nav__item" activeClassName="nav__item--active">
                             <p>New on screens</p>
-                        </div>
-                        <div className="nav__item">
+                        </NavLink>
+                        <NavLink to="/showtimes" className="nav__item" activeClassName="nav__item--active">
                             <p>Showtimes</p>
-                        </div>
+                        </NavLink>
                         <div className="nav__item">
                             <p>Coming soon</p>
                         </div>
