@@ -8,6 +8,7 @@ import { HomePage } from './pages/home/Home.page';
 // Mat
 import { ThemeProvider } from '@material-ui/core/styles';
 import { LoginPage } from './pages/login/Login.page';
+import { RegisterPage } from './pages/register/Register.page';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route path="/login" component={LoginPage} />
+            <Route path="/register" component={RegisterPage} />
           </Switch>
         </Suspense>
       </Router>

@@ -1,9 +1,8 @@
 import * as React from 'react';
-// import React, { useState } from "react";
+import { Route, NavLink } from "react-router-dom";
 //library
 import { FormControl, InputLabel, Input, FormHelperText, TextField, Button, FormControlLabel, Checkbox } from '@material-ui/core';
-
-//page
+//page_scss
 import './Login.page.scss';
 
 
@@ -24,7 +23,7 @@ export function LoginPage() {
             passWord: "",
         }
     })
-    const handleChangInpput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChangInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         console.log(stateLogin);
         let {value, name} = event.target;
         let stateError:string= "";
@@ -62,11 +61,11 @@ export function LoginPage() {
                 <form action="" className="">
                     <h1>Sign In</h1>
                     <div className="form-user">
-                        <TextField id="outlined-basic" label="Email or phone number" variant="outlined" style={{ width: '100%' }} name="user" onChange={handleChangInpput} />
+                        <TextField id="outlined-basic" label="Email or phone number" variant="outlined" style={{ width: '100%' }} name="user" onChange={handleChangInput} />
                         <span className="text-danger">{stateLogin.errors.user}</span>
                     </div>
                     <div className="form-password">
-                        <TextField id="outlined-basic" label="Password" variant="outlined" style={{ width: '100%' }} name="passWord" onChange={handleChangInpput} />
+                        <TextField id="outlined-basic" label="Password" variant="outlined" style={{ width: '100%' }} name="passWord" onChange={handleChangInput} />
                         <span className="text-danger">{stateLogin.errors.passWord}</span>
                     </div>
                     <div className="form-submit">
@@ -74,7 +73,6 @@ export function LoginPage() {
                             Sign In
                         </Button>
                     </div>
-
                     <div className="form-save">
                         <FormControlLabel
                             control={
@@ -87,7 +85,14 @@ export function LoginPage() {
                             label="Remember me"
                         />   
                     </div>
+                    <div className="form-register" style={{color:'black'}}>
+                        New to Cinema?    
+                        <NavLink className="nav-link" to="/register">
+                            Sign up now.
+                        </NavLink>
+                    </div>
                 </form>
+                
             </div>
         </div>
     );
