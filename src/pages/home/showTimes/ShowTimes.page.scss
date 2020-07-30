@@ -1,9 +1,11 @@
-.new-on-screens {
+.showtimes {
     position: relative;
     height: 100vh;
     overflow: hidden;
+    background-color: var(--color-black);
 
     &__slider {
+        display: flex;
         position: absolute;
         left: 0;
         top: 0;
@@ -13,11 +15,11 @@
     &__control {
         position: absolute;
         right: 80px;
-        bottom: 90px;
+        top: 50%;
+        transform: translateY(-50%);
 
         div {
-            display: inline-block;
-            margin: 0 10px;
+            margin: 10px 0;
 
             &:hover {
                 button {
