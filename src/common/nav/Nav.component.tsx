@@ -16,10 +16,10 @@ export interface NavComponentState {
 export default class NavComponent extends React.Component<NavComponentProps, NavComponentState> {
     constructor(props: NavComponentProps) {
         super(props);
-
         this.state = {
-            navStatus: 'info'
+            navStatus: 'menu'
         }
+
     }
 
     public toogleNavStatus = () => {
@@ -33,7 +33,9 @@ export default class NavComponent extends React.Component<NavComponentProps, Nav
             bindNavView =
                 <div className="nav__userinfo">
                     <Button variant="outlined" color="primary">
-                        Sign in
+                        <NavLink to="/login" className="nav__item">
+                            <p>Sign in</p>
+                        </NavLink>
                     </Button>
                 </div>;
         } else {
@@ -46,15 +48,15 @@ export default class NavComponent extends React.Component<NavComponentProps, Nav
                         <NavLink to="/showtimes" className="nav__item" activeClassName="nav__item--active">
                             <p>Showtimes</p>
                         </NavLink>
-                        <div className="nav__item">
+                        <NavLink to="/comingsoon" className="nav__item" activeClassName="nav__item--active">
                             <p>Coming soon</p>
-                        </div>
-                        <div className="nav__item">
+                        </NavLink>
+                        <NavLink to="/reviews" className="nav__item" activeClassName="nav__item--active">
                             <p>New and Reviews</p>
-                        </div>
-                        <div className="nav__item">
+                        </NavLink>
+                        <NavLink to="/contactus" className="nav__item" activeClassName="nav__item--active">
                             <p>Contact us</p>
-                        </div>
+                        </NavLink>
                     </div>
                     <div>
 

@@ -1,9 +1,15 @@
 export interface IntroFilm {
-    _id: string;
-    index: number;
-    name: string;
-    image: string;
-    trailerLink: string;
-    types: string[];
-    timeTickets: string[];
+  _id: number;
+  name: string;
+  penName: string;
+  trailerLink: string;
+  image: string;
+  description: string;
+  dateRelease: string;
+  rate: number;
+  groupID: string;
+  //bonus
+  index: number;
+  types: string[];
+  timeTickets: string[];
 }

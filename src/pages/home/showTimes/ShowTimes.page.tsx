@@ -3,21 +3,19 @@ import * as React from 'react';
 import './ShowTimes.page.scss';
 // Mat
 import { Icon } from '@material-ui/core';
-
-// Interface
-import { IntroFilm } from '../../../core/interface/film/introFilm.interface';
-// Data
-import { introFilmData } from '../../../core/interface/film/introFirm.data';
+// Class
+import { IntroMovie } from '../../../core/interface/film/introFilm.class';
 // Component
 import { TrailerDialogComponent } from '../../../components/trailerDialog/TrailerDialog.component';
 import CardSliderComponent from '../../../components/cardSlider/CardSlider.component';
+import { getShowTimeMovieList } from '../../../core/services/movieManager.service';
 
 export interface ShowTimesPageProps {
 }
 
 export interface ShowTimesPageState {
-    properties: IntroFilm[];
-    property: IntroFilm;
+    properties: IntroMovie[];
+    property: IntroMovie | null;
     openTrailer: boolean;
     urlTrailer: string;
 }
@@ -28,19 +26,25 @@ export default class ShowTimesPage extends React.Component<ShowTimesPageProps, S
         super(props);
 
         this.state = {
-            properties: introFilmData,
-            property: introFilmData[0],
+            properties: [],
+            property: null,
             openTrailer: false,
-            urlTrailer: ''
+            urlTrailer: '',
         }
     }
 
+    componentDidMount = () => {
+        this.doGetShowTimeMovieList();
+    }
+
     nextProperty = () => {
+        if (this.state.property === null) { return; };
         const newIndex = this.state.property.index === this.state.properties.length - 1 - 3 ? 0 : this.state.property.index + 1;
         this.setState({ property: this.state.properties[newIndex] });
     }
 
     prevProperty = () => {
+        if (this.state.property === null) { return; };
         const newIndex = this.state.property.index === 0 ? this.state.properties.length - 1 - 3 : this.state.property.index - 1;
         this.setState({ property: this.state.properties[newIndex] });
     }
@@ -53,9 +57,41 @@ export default class ShowTimesPage extends React.Component<ShowTimesPageProps, S
         this.setState({ openTrailer: false, urlTrailer: '' });
     };
 
+    doGetShowTimeMovieList = () => {
+        getShowTimeMovieList()
+            .then((result) => {
+                const newIntroMovies: IntroMovie[] = result.data.map((item: any, index: number) => {
+                    const newIntroMovie = new IntroMovie(
+                        item.maPhim,
+                        item.tenPhim,
+                        item.biDanh,
+                        item.trailer,
+                        item.hinhAnh,
+                        item.moTa,
+                        item.ngayKhoiChieu,
+                        item.danhGia,
+                        item.maNhom,
+                        index
+                    );
+                    return newIntroMovie;
+                });
+                console.log(newIntroMovies);
+                this.setState(
+                    {
+                        properties: newIntroMovies,
+                        property: newIntroMovies[0]
+                    }
+                )
+            })
+            .catch((errors) => {
+                console.log({ ...errors });
+            });
+
+    };
     render() {
         const { properties, property, openTrailer, urlTrailer } = this.state;
         return (
+            property !== null &&
             <div className="showtimes">
                 <div className="showtimes__slider"
                     style={{

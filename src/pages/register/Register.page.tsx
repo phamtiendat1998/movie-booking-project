@@ -96,7 +96,7 @@ export function RegisterPage() {
                     </div>
                     <div className="form-register" style={{ color: 'black' }}>
                         Already a member?
-                        <NavLink className="nav-link" to="/register">
+                        <NavLink className="nav-link" to="/login">
                             Log in
                         </NavLink>
                     </div>

@@ -6,7 +6,7 @@ export interface IAppProps {
 export interface IAppState {
 }
 
-export default class App extends React.Component<IAppProps, IAppState> {
+export default class CommingSoonPage extends React.Component<IAppProps, IAppState> {
     constructor(props: IAppProps) {
         super(props);
 
@@ -14,10 +14,10 @@ export default class App extends React.Component<IAppProps, IAppState> {
         }
     }
 
-    public render() {
+    render() {
         return (
             <div>
-
+                COMMING SOON
             </div>
         );
     }

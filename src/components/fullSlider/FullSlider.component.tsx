@@ -3,12 +3,13 @@ import * as React from 'react';
 import './FullSlider.component.scss';
 // Interface
 import { IntroFilm } from '../../core/interface/film/introFilm.interface';
+import { IntroMovie } from '../../core/interface/film/introFilm.class';
 // Mat
 import Icon from '@material-ui/core/Icon';
 
 export interface FullSliderProps {
-    key: string;
-    slider: IntroFilm;
+    key: number;
+    slider: IntroMovie;
     onOpenTrailer: (value: boolean) => void;
 }
 
