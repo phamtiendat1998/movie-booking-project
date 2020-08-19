@@ -13,6 +13,7 @@ import FullSliderComponent from '../../../components/fullSlider/FullSlider.compo
 import { TrailerDialogComponent } from '../../../components/trailerDialog/TrailerDialog.component';
 
 import { getShowTimeMovieList } from '../../../core/services/movieManager.service';
+import { IntroShowComponent } from '../../../components/introShow/IntroShow.component';
 
 export interface NewOnScreensPageProps {
 }
@@ -81,10 +82,21 @@ export default class NewOnScreensPage extends React.Component<NewOnScreensPagePr
                     return newIntroMovie;
                 });
                 console.log(newIntroMovies);
+                const newIntroMoviesRandom: IntroMovie[] = [];
+                if (newIntroMovies.length >= 15) {
+                    for (let i = 0; i < 5; i++) {
+                        let indexRandom = Math.floor(Math.random() * newIntroMovies.length);
+                        newIntroMoviesRandom.push(newIntroMovies[indexRandom]);
+                        newIntroMovies.splice(indexRandom, 1);
+                    }
+                    for (let i = 0; i < newIntroMoviesRandom.length; i++) {
+                        newIntroMoviesRandom[i].index = i;
+                    }
+                }
                 this.setState(
                     {
-                        properties: newIntroMovies,
-                        property: newIntroMovies[0]
+                        properties: newIntroMoviesRandom,
+                        property: newIntroMoviesRandom[0]
                     }
                 )
             })
@@ -113,21 +125,26 @@ export default class NewOnScreensPage extends React.Component<NewOnScreensPagePr
                         <button onClick={this.prevProperty}>
                             <Icon fontSize="small">skip_previous</Icon>
                         </button>
-                        <p>Prev</p>
+                        {/* <p>Prev</p> */}
                     </div>
                     <div>
                         <button onClick={this.nextProperty}>
                             <Icon fontSize="small">skip_next</Icon>
                         </button>
-                        <p>Next</p>
+                        {/* <p>Next</p> */}
                     </div>
                 </div>
                 <div className="new-on-screens__dot">
                     {
-                        [...Array(properties.length)].map((i, index) => <div className={index === property.index ? 'active' : ''} key={index} onClick={() => this.selectProperty(index)}></div>)
+                        [...Array(properties.length)].map((i, index) =>
+                            <div
+                                className={index === property.index ? 'active' : ''}
+                                key={index}
+                                onClick={() => this.selectProperty(index)}>
+                            </div>)
                     }
                 </div>
-                <TrailerDialogComponent open={openTrailer} trailerUrl={property.trailerLink} onClose={this.handleCloseTrailer}></TrailerDialogComponent>
+                <IntroShowComponent trailerUrl={property.trailerLink}></IntroShowComponent>
             </div>
         );
     }

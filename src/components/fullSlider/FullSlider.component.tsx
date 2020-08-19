@@ -22,7 +22,7 @@ export default function FullSliderComponent(props: FullSliderProps) {
 
     return (
         <div className="full-slider">
-            <img src={slider.image} alt="" />
+            {/* <img src={slider.image} alt="" /> */}
             <div className="full-slider__content">
                 <h3>
                     {
@@ -31,7 +31,7 @@ export default function FullSliderComponent(props: FullSliderProps) {
                 </h3>
                 <div>
                     <div className="full-slider__trailer-btn" onClick={handleOpenTrailer}>
-                        <Icon color="primary">play_arrow</Icon>
+                        <Icon color="primary">stop_arrow</Icon>
                         <p>Trailer</p>
                     </div>
                     <h1>{slider.name}</h1>

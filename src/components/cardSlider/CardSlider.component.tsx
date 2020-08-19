@@ -22,6 +22,7 @@ export default function CardSliderComponent(props: CardSliderProps) {
 
     return (
         <div className="card-slider">
+            {/* <img src="/film/supperman.jpg" alt=""/> */}
             <img src={slider.image} alt="" />
             <div className="card-slider__content">
                 <h4>

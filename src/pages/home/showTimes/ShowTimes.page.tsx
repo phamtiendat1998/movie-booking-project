@@ -86,7 +86,6 @@ export default class ShowTimesPage extends React.Component<ShowTimesPageProps, S
             .catch((errors) => {
                 console.log({ ...errors });
             });
-
     };
     render() {
         const { properties, property, openTrailer, urlTrailer } = this.state;

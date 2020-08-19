@@ -17,9 +17,19 @@ export function TrailerDialogComponent(props: TrailerDialogComponentProps) {
     };
 
     return (
-        <Dialog maxWidth="xl" onClose={handleClose} aria-labelledby="simple-dialog-title" open={props.open}>
-            <iframe width="900" height="500" src={props.trailerUrl}>
-            </iframe>
+        <Dialog style={{ overflowY: 'hidden' }} maxWidth="xl" onClose={handleClose} aria-labelledby="simple-dialog-title" open={props.open}>
+            <div className="video-container video-background" >
+                <div className="video-foreground">
+                    <iframe
+                        width="900" height="500"
+                        src={props.trailerUrl + '?start=10&autoplay=1;mute=0;controls=0;'}
+                        allow='autoplay; encrypted-media'
+                        frameBorder="0"
+                        allowFullScreen
+                    />
+                </div>
+            </div>
+
         </Dialog>
     );
 }
