@@ -20,7 +20,6 @@
 
         div {
             margin: 10px 0;
-
             &:hover {
                 button {
                     background-color: var(--color-bg-yellow);
@@ -47,35 +46,50 @@
                 outline: none;
             }
         }
-
-        p {
-            text-align: center;
-            color: white;
-            opacity: 0.5;
-            transition: all 0.3s;
+    }
+    &__search {
+        input[type="text"] {
+            font-weight: bold;
+            background-image: url(/film/searchicon.png);
+            width: 130px;
+            border: 2px solid rgba(grey, 0.1);
+            border-radius: 15px 0 0 15px;
+            outline: none;
+            background-color: white;
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            padding: 12px 20px 12px 40px;
+            pointer-events: all;
+            transition: border 0.25s ease, width 0.4s ease-in-out;
+            position: absolute;
+            right: -2px;
+            top: 84px;
+        }
+        input[type="text"]:focus {
+            width: 37%;
+            border: 2px solid var(--color-bg-yellow);
         }
     }
-
-    &__dot {
+    .card-add-item {
         position: absolute;
-        left: 80px;
-        bottom: 90px;
-
-        div {
-            margin-right: 20px;
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background-color: var(--color-gray);
-            cursor: pointer;
-            display: inline-block;
-            transition: all 0.3s;
-
-            &.active {
-                background-color: var(--color-yellow);
-                box-shadow: 0px 0px 15px 3px var(--color-yellow);
-            }
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 10;
+        border: none;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: var(--color-bg-gray);
+        color: var(--color-yellow);
+        transition: all 0.3s;
+        cursor: pointer;
+        &:focus {
+            outline: none;
+        }
+        &:hover {
+            background-color: var(--color-bg-yellow);
+            color: var(--color-constrast-yellow);
         }
     }
 }
-

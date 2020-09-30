@@ -1,5 +1,5 @@
 .nav {
-    height: 85px; // 70
+    height: 84px; // 70
     width: 100%;
     display: grid;
     grid-template-columns: 70px auto;
@@ -19,7 +19,6 @@
     }
 
     &__view {
-
         &--no-bg {
             background-color: transparent;
         }
@@ -31,6 +30,13 @@
         display: flex;
         align-items: center;
         justify-content: flex-end;
+        color: var(--color-yellow);
+        & > div {
+            display: flex;
+            align-items: center;
+            margin: 0 8px;
+            cursor: pointer;
+        }
     }
 
     &__menu {
@@ -39,7 +45,7 @@
         color: var(--color-contrast-black);
         backdrop-filter: blur(10px);
 
-        &>div {
+        & > div {
             height: 50%;
 
             &:first-child {
@@ -53,7 +59,6 @@
                 opacity: 0.3;
             }
         }
-
     }
 
     &__item {
@@ -75,13 +80,16 @@
             opacity: 0.5;
             transition: all 0.3s;
             pointer-events: none;
+            font-weight: 900;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
         }
 
         &--active {
             position: relative;
 
             &::after {
-                content: '';
+                content: "";
                 width: 7px;
                 height: 7px;
                 background-color: var(--color-yellow);

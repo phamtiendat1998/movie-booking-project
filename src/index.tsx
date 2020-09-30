@@ -6,7 +6,7 @@ import * as serviceWorker from './serviceWorker';
 //Setup Redux
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from "react-redux";
-import rootReducer from './core/redux/reducer/main';
+import rootReducer from './core/redux/reducer/store';
 import reduxThunk from "redux-thunk";
 
 const store = createStore(rootReducer, applyMiddleware(reduxThunk));

@@ -1,27 +1,21 @@
 import * as React from 'react';
 // Scss
 import './NewOnScreens.page.scss';
-// Data
-import { introFilmData } from '../../../core/interface/film/introFirm.data';
+import '../../../components/trailerDialog/TrailerDialog.component.scss';
+// Mat
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 // Interface
 import { IntroMovie } from '../../../core/interface/film/introFilm.class';
-
-// Mat
-import Icon from '@material-ui/core/Icon';
 // Component
 import FullSliderComponent from '../../../components/fullSlider/FullSlider.component';
-import { TrailerDialogComponent } from '../../../components/trailerDialog/TrailerDialog.component';
-
+// Services
 import { getShowTimeMovieList } from '../../../core/services/movieManager.service';
-import { IntroShowComponent } from '../../../components/introShow/IntroShow.component';
 
-export interface NewOnScreensPageProps {
-}
-
+export interface NewOnScreensPageProps { }
 export interface NewOnScreensPageState {
     properties: IntroMovie[];
     property: IntroMovie | null;
-    openTrailer: boolean;
 }
 
 export default class NewOnScreensPage extends React.Component<NewOnScreensPageProps, NewOnScreensPageState> {
@@ -31,7 +25,6 @@ export default class NewOnScreensPage extends React.Component<NewOnScreensPagePr
         this.state = {
             properties: [],
             property: null,
-            openTrailer: false
         }
     }
 
@@ -55,18 +48,10 @@ export default class NewOnScreensPage extends React.Component<NewOnScreensPagePr
         this.setState({ property: this.state.properties[index] });
     }
 
-    handleOpenTrailer = () => {
-        this.setState({ openTrailer: true });
-    };
-
-    handleCloseTrailer = () => {
-        this.setState({ openTrailer: false });
-    };
-
     doGetShowTimeMovieList = () => {
         getShowTimeMovieList()
-            .then((result) => {
-                const newIntroMovies: IntroMovie[] = result.data.map((item: any, index: number) => {
+            .then(result => {
+                const newIntroMovies: IntroMovie[] = result.data.map((item: any = {}, index: number) => {
                     const newIntroMovie = new IntroMovie(
                         item.maPhim,
                         item.tenPhim,
@@ -77,37 +62,38 @@ export default class NewOnScreensPage extends React.Component<NewOnScreensPagePr
                         item.ngayKhoiChieu,
                         item.danhGia,
                         item.maNhom,
-                        index
+                        index,
                     );
                     return newIntroMovie;
                 });
-                console.log(newIntroMovies);
+
+                /* Taking random 5 element as the trailer trending */
                 const newIntroMoviesRandom: IntroMovie[] = [];
                 if (newIntroMovies.length >= 15) {
                     for (let i = 0; i < 5; i++) {
                         let indexRandom = Math.floor(Math.random() * newIntroMovies.length);
                         newIntroMoviesRandom.push(newIntroMovies[indexRandom]);
                         newIntroMovies.splice(indexRandom, 1);
-                    }
-                    for (let i = 0; i < newIntroMoviesRandom.length; i++) {
+                        //sort index newIntroMoviesRandom
                         newIntroMoviesRandom[i].index = i;
                     }
                 }
+
                 this.setState(
                     {
                         properties: newIntroMoviesRandom,
-                        property: newIntroMoviesRandom[0]
+                        property: newIntroMoviesRandom[0],
                     }
                 )
+                /* ------------------------------------------------ */
             })
             .catch((errors) => {
                 console.log({ ...errors });
             });
-
     };
 
-    render() {
-        const { properties, property, openTrailer } = this.state;
+    render = () => {
+        const { properties, property } = this.state;
         return (
             property !== null &&
             <div className="new-on-screens">
@@ -117,21 +103,19 @@ export default class NewOnScreensPage extends React.Component<NewOnScreensPagePr
                     }}
                 >
                     {
-                        properties.map(property => <FullSliderComponent key={property._id} slider={property} onOpenTrailer={this.handleOpenTrailer}></FullSliderComponent>)
+                        properties.map(property => <FullSliderComponent key={property.index} slider={property} showTimes={[]}></FullSliderComponent>)
                     }
                 </div>
                 <div className="new-on-screens__control">
                     <div>
                         <button onClick={this.prevProperty}>
-                            <Icon fontSize="small">skip_previous</Icon>
+                            <KeyboardArrowUpIcon />
                         </button>
-                        {/* <p>Prev</p> */}
                     </div>
                     <div>
                         <button onClick={this.nextProperty}>
-                            <Icon fontSize="small">skip_next</Icon>
+                            <KeyboardArrowDownIcon />
                         </button>
-                        {/* <p>Next</p> */}
                     </div>
                 </div>
                 <div className="new-on-screens__dot">
@@ -144,7 +128,17 @@ export default class NewOnScreensPage extends React.Component<NewOnScreensPagePr
                             </div>)
                     }
                 </div>
-                <IntroShowComponent trailerUrl={property.trailerLink}></IntroShowComponent>
+                <div className="video-background" >
+                    <div className="video-foreground">
+                        <iframe
+                            title="trailer-trending"
+                            src={property.trailerLink + '?playlist=peSfCy7HFrM&loop=1&start=10&end=50&autoplay=1;mute=0;controls=0'}
+                            allow='autoplay; encrypted-media'
+                            frameBorder="0"
+                            allowFullScreen
+                        />
+                    </div>
+                </div>
             </div>
         );
     }

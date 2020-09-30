@@ -14,33 +14,33 @@ export class IntroMovie {
     timeTickets: string[]; // Gio khoi chieu
 
     constructor(
-        maPhim: number,
-        tenPhim: string,
-        biDanh: string,
-        trailer: string,
-        hinhAnh: string,
-        moTa: string,
-        ngayKhoiChieu: string,
-        danhGia: number,
-        maNhom: string,
+        _id: number,
+        name: string,
+        penName: string,
+        trailerLink: string,
+        image: string,
+        description: string,
+        dateRelease: string,
+        rate: number,
+        groupID: string,
         //bonus
         index: number,
         // types: ["Fantasy", "Adventure", "Thriller"],
         // timeTickets: ["12:30", "13:30", "14:30", "15:30"],
-        ) {
+    ) {
 
-        this._id = maPhim;
-        this.name = tenPhim;
-        this.penName = biDanh;
-        this.trailerLink = trailer;
-        this.image = hinhAnh;
-        this.description = moTa;
-        this.dateRelease = ngayKhoiChieu;
-        this.rate = danhGia;
-        this.groupID = maNhom;
+        this._id = _id;
+        this.name = name;
+        this.penName = penName;
+        this.trailerLink = trailerLink;
+        this.image = image;
+        this.description = description;
+        this.dateRelease = dateRelease;
+        this.rate = rate;
+        this.groupID = groupID;
         //bonus
         this.index = index;
         this.types = ["Fantasy", "Adventure", "Thriller"];
-        this.timeTickets = ["12:30", "13:30", "14:30", "15:30"];
+        this.timeTickets =  ["12:30", "13:30", "14:30", "15:30"];
     }
 }

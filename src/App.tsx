@@ -1,29 +1,31 @@
 import React, { Suspense, Fragment } from 'react';
-import { BrowserRouter as Router, Route, Switch, BrowserRouter } from 'react-router-dom';
+import { Switch, BrowserRouter, Route } from 'react-router-dom';
 // Scss
 import './App.scss';
-import { theme } from './core/config/theme';
 // Component
-import { HomePage } from './pages/home/Home.page';
-
+import LoadingComponent from './common/loading/Loading.component';
 // Mat
-import { ThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+import { themes } from './core/config/theme';
+
+//page
+const HomePage = React.lazy(() => import('./pages/home/Home.page'));
 
 
 function App() {
   return (
     <BrowserRouter>
       <Fragment>
-        <ThemeProvider theme={theme}>
-          <Suspense fallback={<div>Loading...</div>}>
+        <ThemeProvider theme={themes}>
+          <Suspense fallback={<LoadingComponent />}>
             <Switch>
-              <Route exact path="**" component={HomePage} />
+              <Route path="/" component={HomePage} />
 
             </Switch>
           </Suspense>
         </ThemeProvider>
       </Fragment>
-    </BrowserRouter>
+    </BrowserRouter >
 
 
   );

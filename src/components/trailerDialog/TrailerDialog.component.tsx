@@ -3,7 +3,6 @@ import * as React from 'react';
 import './TrailerDialog.component.scss';
 // Mat
 import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
 
 export interface TrailerDialogComponentProps {
     open: boolean;
@@ -21,7 +20,7 @@ export function TrailerDialogComponent(props: TrailerDialogComponentProps) {
             <div className="video-container video-background" >
                 <div className="video-foreground">
                     <iframe
-                        width="900" height="500"
+                        title="trailer"
                         src={props.trailerUrl + '?start=10&autoplay=1;mute=0;controls=0;'}
                         allow='autoplay; encrypted-media'
                         frameBorder="0"
