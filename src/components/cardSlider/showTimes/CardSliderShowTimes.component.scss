@@ -145,26 +145,68 @@
             }
         }
     }
-    .card-delete-item {
+
+    .control {
         position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
         z-index: 10;
-        border: none;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        background-color: var(--color-bg-gray);
-        color: var(--color-yellow);
-        transition: all 0.3s;
-        cursor: pointer;
-        &:focus {
-            outline: none;
+        top: 50%;
+        padding-left: 50px;
+        transform: translateY(-50%);
+        div {
+            margin: 10px 0;
+            &:hover {
+                button {
+                    background-color: var(--color-bg-yellow);
+                    color: var(--color-constrast-yellow);
+                }
+
+                p {
+                    opacity: 1;
+                }
+            }
         }
-        &:hover {
-            background-color: var(--color-bg-yellow);
-            color: var(--color-constrast-yellow);
+        button {
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--color-bg-gray);
+            color: var(--color-yellow);
+            transition: all 0.3s;
+            cursor: pointer;
+
+            &:focus {
+                outline: none;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 1680px) {
+    .card-slider-showTimes {
+        width: 420px;
+    }
+}
+
+@media only screen and (max-width: 1470px) {
+    .card-slider-showTimes {
+        width: 490px;
+    }
+}
+
+@media only screen and (max-width: 1225px) {
+    .card-slider-showTimes {
+        width: 408.3px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .card-slider-showTimes {
+        width: 384px;
+        &__ticket-wrapper {
+            h4 {
+                display: none;
+            }
         }
     }
 }

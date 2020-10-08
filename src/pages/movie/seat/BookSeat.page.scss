@@ -112,3 +112,30 @@
     }
   }
 }
+@media only screen and (max-width: 1024px) {
+  .book-seat {
+    &__content {
+      width: 100%;
+      margin-top: 35px;
+    }
+    button {
+      margin: 0;
+    }
+    &__ticket-btn {
+      width: 15%;
+    }
+  }
+}
+@media only screen and (max-width: 768px) {
+  .book-seat {
+    button {
+      padding: 0;
+    }
+    &__content {
+      margin-top: 0;
+    }
+    &__ticket-btn {
+      width: 20%;
+    }
+  }
+}

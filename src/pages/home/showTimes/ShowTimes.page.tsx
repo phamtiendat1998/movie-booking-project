@@ -6,33 +6,38 @@ import { Icon } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 // Interface
 import { IntroMovie } from '../../../core/interface/film/introFilm.class';
-// Component
-import { TrailerDialogComponent } from '../../../components/trailerDialog/TrailerDialog.component';
-import CardSliderShowTimesComponent from '../../../components/cardSlider_ShowTimes/CardSliderShowTimes.component';
-import { FormDialogComponent } from '../../../components/formDialog/FormDialog.component';
 // Services
 import { getShowTimeMovieList } from '../../../core/services/movieManager.service';
+// Component
+import CardSliderShowTimesComponent from '../../../components/cardSlider/showTimes/CardSliderShowTimes.component';
+import { TrailerDialogComponent } from '../../../components/trailerDialog/TrailerDialog.component';
+import { AddFormDialogComponent } from '../../../components/formDialog/AddFormDialog.component';
+import { UpdateFormDialogComponent } from '../../../components/formDialog/UpdateFormDialog.component';
+import { AlertSnackbarComponent } from '../../../components/alert/AlertSnackbar.component';
 
-const checkIsAdmin = () => {
+const isAdmin = () => {
     if (JSON.parse(localStorage.getItem("userLogin") || "{}").maLoaiNguoiDung === "QuanTri") {
         return true;
-    } else {
-        return false;
     }
+    return false;
 }
 
-export interface ShowTimesPageProps { }
+export interface ShowTimesPageProps {
+}
 export interface ShowTimesPageState {
     properties: IntroMovie[];
     property: IntroMovie | null;
     openTrailer: boolean;
     urlTrailer: string;
-    openForm: boolean;
+    openAddForm: boolean;
+    openUpdateForm: boolean;
+    itemUpdate: IntroMovie | null;
     query: string;
-    filteredData: IntroMovie[],
+    filteredData: IntroMovie[];
+    openAlert: boolean;
 }
 
-export default class ShowTimesPage extends React.Component<ShowTimesPageProps, ShowTimesPageState> {
+class ShowTimesPage extends React.Component<ShowTimesPageProps, ShowTimesPageState> {
     constructor(props: ShowTimesPageProps) {
         super(props);
 
@@ -41,23 +46,27 @@ export default class ShowTimesPage extends React.Component<ShowTimesPageProps, S
             property: null,
             openTrailer: false,
             urlTrailer: '',
-            openForm: false,
+            openAddForm: false,
+            openUpdateForm: false,
+            itemUpdate: null,
             query: '',
             filteredData: [],
+            openAlert: false,
         }
     }
+
     componentDidMount = () => {
         this.doGetShowTimeMovieList();
     }
 
     nextProperty = () => {
-        if (this.state.property === null) { return; };
+        if (this.state.property === null) { return };
         const newIndex = this.state.property.index === this.state.properties.length - 1 - 3 ? 0 : this.state.property.index + 1;
         this.setState({ property: this.state.properties[newIndex] });
     }
 
     prevProperty = () => {
-        if (this.state.property === null) { return; };
+        if (this.state.property === null) { return };
         const newIndex = this.state.property.index === 0 ? this.state.properties.length - 1 - 3 : this.state.property.index - 1;
         this.setState({ property: this.state.properties[newIndex] });
     }
@@ -70,23 +79,33 @@ export default class ShowTimesPage extends React.Component<ShowTimesPageProps, S
         this.setState({ openTrailer: false, urlTrailer: '' });
     };
 
-    handleOpenForm = () => {
-        this.setState({ openForm: true });
+    handleOpenAddForm = () => {
+        this.setState({ openAddForm: true });
+    }
+
+    handleOpenUpdateForm = (item: IntroMovie) => {
+        this.setState({ openUpdateForm: true, itemUpdate: item });
     }
 
     handleCloseForm = () => {
-        this.setState({ openForm: false });
+        this.setState({ openAddForm: false, openUpdateForm: false });
     }
 
     handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const query = event.target.value;
-
         this.setState(prevState => {
-            const filteredData = prevState.properties.filter(element => {
-                return element.name.toLowerCase().includes(query.toLowerCase());
-            })
-            return ({ query, filteredData })
+            const filteredData = prevState.properties
+                .filter(item => item.name.toLowerCase().includes(query.toLowerCase()));
+            return ({ query, filteredData });
         })
+    }
+
+    handleOpenAlert = () => {
+        this.setState({ openAlert: true });
+    }
+
+    handleCloseAlert = () => {
+        this.setState({ openAlert: false });
     }
 
     doGetShowTimeMovieList = () => {
@@ -120,25 +139,24 @@ export default class ShowTimesPage extends React.Component<ShowTimesPageProps, S
                 console.log({ ...errors });
             });
     };
+
     render = () => {
-        const { property, openTrailer, urlTrailer, openForm, filteredData } = this.state;
+        const { property, openTrailer, urlTrailer, openAddForm, openUpdateForm, filteredData, openAlert, itemUpdate } = this.state;
         return (
             property !== null &&
             <div className="showtimes">
+                {isAdmin() &&
+                    <button className="card-add-item" onClick={this.handleOpenAddForm}>
+                        <AddIcon />
+                    </button>
+                }
                 <div className="showtimes__slider"
                     style={{
-                        'transform': `translateX(-${property.index * (100 / filteredData.length)}%)`
-                    }}
-                >
-                    {checkIsAdmin() &&
-                        <div className="card-slider-showTimes">
-                            <button className="card-add-item" onClick={this.handleOpenForm}>
-                                <AddIcon />
-                            </button>
-                        </div>
-                    }
+                        'transform': `translateX(-${property.index * (100 / (filteredData.length))}%)`
+                    }}>
+
                     {
-                        filteredData.map(property => <CardSliderShowTimesComponent key={property.index} slider={property} onOpenTrailer={this.handleOpenTrailer} showTimes={[]} isAdmin={checkIsAdmin()}></CardSliderShowTimesComponent>)
+                        filteredData.map(property => <CardSliderShowTimesComponent key={property.index} slider={property} onOpenTrailer={this.handleOpenTrailer} onOpenForm={this.handleOpenUpdateForm} onOpenAlert={this.handleOpenAlert} isAdmin={isAdmin()}></CardSliderShowTimesComponent>)
                     }
 
                 </div>
@@ -159,9 +177,13 @@ export default class ShowTimesPage extends React.Component<ShowTimesPageProps, S
                         <input type="text" name="search" placeholder="Search.." onChange={this.handleInputChange} />
                     </form>
                 </div>
+
                 <TrailerDialogComponent open={openTrailer} trailerUrl={urlTrailer} onClose={this.handleCloseTrailer}></TrailerDialogComponent>
-                <FormDialogComponent open={openForm} onClose={this.handleCloseForm}></FormDialogComponent>
+                <AddFormDialogComponent open={openAddForm} onClose={this.handleCloseForm} onOpenAlert={this.handleOpenAlert}></AddFormDialogComponent>
+                <UpdateFormDialogComponent open={openUpdateForm} onClose={this.handleCloseForm} onOpenAlert={this.handleOpenAlert} slider={itemUpdate}></UpdateFormDialogComponent>
+                <AlertSnackbarComponent open={openAlert} onClose={this.handleCloseAlert}></AlertSnackbarComponent>
             </div >
         );
     }
 }
+export default ShowTimesPage;

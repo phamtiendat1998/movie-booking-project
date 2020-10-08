@@ -25,5 +25,5 @@ export const postUserRegister = (userRegister: any = {}) => {
 export const postUserBookTicket = (ticket: any = {}) => {
   return axios.post(`${bookTicketAPI}`, ticket, {
     headers: { Authorization: "Bearer " + localStorage.getItem(token) },
-  });
+  },);
 };

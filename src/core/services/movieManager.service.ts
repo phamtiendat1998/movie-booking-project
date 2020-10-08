@@ -5,8 +5,10 @@ import {
   movieDetailAPI,
   addMovieAPI,
   deleteMovieAPI,
+  updateMovieAPI,
 } from "../config/api.constant";
 import { bookSeatAPI } from "./../config/api.constant";
+import { IntroMovie } from "./../interface/film/introFilm.class";
 
 export const getShowTimeMovieList = () =>
   axios.get(`${showTimeMovieListAPI}?maNhom=${groupID}`);
@@ -16,7 +18,7 @@ export const getMovieDetail = (id: number) =>
   axios.get(`${movieDetailAPI}?MaPhim=${id}`);
 export const getMovieTicketList = (id: number) =>
   axios.get(`${bookSeatAPI}?MaLichChieu=${id}`);
-export const postAddMovie = (data: any = {}) => {
+export const postAddMovie = (data: IntroMovie) => {
   return axios.post(
     `${addMovieAPI}`,
     {
@@ -25,7 +27,7 @@ export const postAddMovie = (data: any = {}) => {
       biDanh: data.penName,
       trailer: data.trailerLink,
       hinhAnh: data.image,
-      moTa: data.descriptiones,
+      moTa: data.description,
       maNhom: `${groupID}`,
       ngayKhoiChieu: data.dateRelease,
       danhGia: data.rate,
@@ -39,4 +41,23 @@ export const deleteMovie = (_id: number) => {
   return axios.delete(`${deleteMovieAPI}?MaPhim=${_id}`, {
     headers: { Authorization: "Bearer " + localStorage.getItem(token) },
   });
+};
+export const updateMovie = (data: IntroMovie) => {
+  return axios.post(
+    `${updateMovieAPI}`,
+    {
+      maPhim: data._id,
+      tenPhim: data.name,
+      biDanh: data.penName,
+      trailer: data.trailerLink,
+      hinhAnh: data.image,
+      moTa: data.description,
+      maNhom: `${groupID}`,
+      ngayKhoiChieu: data.dateRelease,
+      danhGia: data.rate,
+    },
+    {
+      headers: { Authorization: "Bearer " + localStorage.getItem(token) },
+    }
+  );
 };

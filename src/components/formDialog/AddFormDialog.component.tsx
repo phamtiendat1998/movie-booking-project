@@ -1,44 +1,31 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@material-ui/core';
 import * as React from 'react';
+//mat 
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@material-ui/core';
+//react-hook-form
+import { useForm } from 'react-hook-form';
+//interface
+import { IntroMovie } from './../../core/interface/film/introFilm.class';
+//services
 import { postAddMovie } from '../../core/services/movieManager.service';
 
-export interface FormDialogComponentProps {
+export interface AddFormDialogComponentProps {
     open: boolean;
     onClose: () => void;
+    onOpenAlert: () => void;
+
 }
 
-export function FormDialogComponent(props: FormDialogComponentProps) {
+export function AddFormDialogComponent(props: AddFormDialogComponentProps) {
+    const { register, handleSubmit } = useForm<IntroMovie>({});
 
-    let [dataSubmit, setDataLogin] = React.useState({
-        values: {
-            _id: 0,
-            name: "",
-            penName: "",
-            trailerLink: "",
-            image: "",
-            description: "",
-            dateRelease: "",
-            rate: 0,
-        }
-    })
     const handleClose = () => {
         props.onClose();
     };
 
-    const handleChangInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-        let { value, name } = event.target;
-        let newValues = {
-            ...dataSubmit.values,
-            [name]: value,
-        };
-        setDataLogin({ values: newValues });
-    }
-
-    const handleSubmit = (e: any) => {
-        e.preventDefault();
-        postAddMovie(dataSubmit.values)
+    const onSubmit = (data: IntroMovie) => {
+        postAddMovie(data)
             .then(res => {
-                alert("Add movie successful");
+                props.onOpenAlert();
                 window.location.reload();
             })
             .catch(err => console.log({ ...err }))
@@ -49,61 +36,61 @@ export function FormDialogComponent(props: FormDialogComponentProps) {
             <DialogTitle id="form-dialog-title">Add movie</DialogTitle>
             <DialogContent>
                 <TextField
+                    inputRef={register}
                     autoFocus
                     margin="dense"
                     name="_id"
                     label="ID"
                     fullWidth
-                    onChange={handleChangInput}
                 />
                 <TextField
+                    inputRef={register}
                     margin="dense"
                     name="name"
                     label="Name"
                     fullWidth
-                    onChange={handleChangInput}
                 />
                 <TextField
+                    inputRef={register}
                     margin="dense"
                     name="penName"
                     label="Penname"
                     fullWidth
-                    onChange={handleChangInput}
                 />
                 <TextField
+                    inputRef={register}
                     margin="dense"
                     name="trailerLink"
                     label="Trailer"
                     fullWidth
-                    onChange={handleChangInput}
                 />
                 <TextField
+                    inputRef={register}
                     margin="dense"
                     name="image"
                     label="Image"
                     fullWidth
-                    onChange={handleChangInput}
                 />
                 <TextField
+                    inputRef={register}
                     margin="dense"
                     name="description"
                     label="Describe"
                     fullWidth
-                    onChange={handleChangInput}
                 />
                 <TextField
+                    inputRef={register}
                     margin="dense"
                     name="dateRelease"
                     label="DateRelease"
                     fullWidth
-                    onChange={handleChangInput}
                 />
                 <TextField
+                    inputRef={register}
                     margin="dense"
                     name="rate"
                     label="Rate"
                     fullWidth
-                    onChange={handleChangInput}
                 />
 
             </DialogContent>
@@ -111,7 +98,7 @@ export function FormDialogComponent(props: FormDialogComponentProps) {
                 <Button onClick={handleClose} color="primary">
                     Cancel
           </Button>
-                <Button onClick={handleSubmit} color="primary">
+                <Button onClick={handleSubmit(onSubmit)} color="primary">
                     Submit
           </Button>
             </DialogActions>

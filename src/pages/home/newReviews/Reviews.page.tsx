@@ -7,8 +7,8 @@ import { ReviewFilm } from '../../../core/interface/film/reviewFilm.interface';
 // Data
 import { reviewFilmData } from "../../../core/interface/film/reviewFirm.data";
 // Component
-import CardNewReviewComponent from '../../../components/card_NewReviews/card_new/CardNew.component';
-import CardRatingReviewComponent from '../../../components/card_NewReviews/card_rating/CardRating.component';
+import CardNewReviewComponent from '../../../components/cardNew/new/CardNew.component';
+import CardRatingReviewComponent from '../../../components/cardNew/rating/CardRating.component';
 
 export interface ReviewsPageProps {
     newProperties: ReviewFilm;
@@ -29,6 +29,8 @@ export default class ReviewsPage extends React.Component<ReviewsPageProps, Revie
     render = () => {
         const { properties } = this.state;
         const newProperties = properties.map(res => res)
+        console.log("newProperties", newProperties);
+
         return (
             <Fragment>
                 <div className="reviews">
@@ -40,7 +42,9 @@ export default class ReviewsPage extends React.Component<ReviewsPageProps, Revie
                             <div className="reviews__scrollbar">
                                 <div className="force-overflow">
                                     <div className="reviews__news">
-                                        <CardNewReviewComponent card={properties[0]} style={`row`}></CardNewReviewComponent>
+                                        <div className="reviews__news-row">
+                                            <CardNewReviewComponent card={properties[0]} style={`row`}></CardNewReviewComponent>
+                                        </div>
                                         <div className="reviews__news-col">
                                             {newProperties.splice(1).map((newProperties, i) => <CardNewReviewComponent key={i} card={newProperties} style={`col`}></CardNewReviewComponent>)}
                                         </div>

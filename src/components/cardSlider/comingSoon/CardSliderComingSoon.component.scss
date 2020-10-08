@@ -70,7 +70,8 @@
         column-gap: 10px;
         margin-right: 40px;
         margin-top: 20px;
-        & > div,a {
+        & > div,
+        a {
             background-color: var(--color-black);
             color: var(--color-yellow);
             width: 40px;
@@ -93,6 +94,29 @@
         p {
             align-self: center;
         }
-        
+    }
+}
+
+@media only screen and (max-width: 1680px) {
+    .card-slider-comingSoon {
+        width: 420px;
+    }
+}
+
+@media only screen and (max-width: 1470px) {
+    .card-slider-comingSoon {
+        width: 490px;
+    }
+}
+
+@media only screen and (max-width: 1225px) {
+    .card-slider-comingSoon {
+        width: 408.3px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .card-slider-comingSoon {
+        width: 384px;
     }
 }

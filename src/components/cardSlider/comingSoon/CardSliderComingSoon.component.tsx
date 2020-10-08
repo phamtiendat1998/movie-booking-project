@@ -2,7 +2,7 @@ import * as React from 'react';
 // Scss
 import './CardSliderComingSoon.component.scss';
 // Interface
-import { IntroMovie } from '../../core/interface/film/introFilm.class';
+import { IntroMovie } from '../../../core/interface/film/introFilm.class';
 // Mat
 import Icon from '@material-ui/core/Icon';
 import { NavLink } from 'react-router-dom';

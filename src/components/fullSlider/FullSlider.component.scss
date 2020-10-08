@@ -94,3 +94,13 @@
         }
     }
 }
+
+@media only screen and (max-width: 768px) {
+    .full-slider {
+        &__content {
+            & > div:last-child {
+                grid-template-columns: auto;
+            }
+        }
+    }
+}

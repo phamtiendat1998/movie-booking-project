@@ -6,7 +6,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import CommentIcon from '@material-ui/icons/Comment';
 import ShareIcon from '@material-ui/icons/Share';
 //interface
-import { ReviewFilm } from './../../../core/interface/film/reviewFilm.interface';
+import { ReviewFilm } from '../../../core/interface/film/reviewFilm.interface';
 import { BottomNavigationAction } from '@material-ui/core';
 
 

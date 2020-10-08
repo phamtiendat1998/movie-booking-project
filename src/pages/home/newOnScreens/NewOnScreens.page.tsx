@@ -9,7 +9,7 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import { IntroMovie } from '../../../core/interface/film/introFilm.class';
 // Component
 import FullSliderComponent from '../../../components/fullSlider/FullSlider.component';
-// Services
+//Services
 import { getShowTimeMovieList } from '../../../core/services/movieManager.service';
 
 export interface NewOnScreensPageProps { }
@@ -18,28 +18,28 @@ export interface NewOnScreensPageState {
     property: IntroMovie | null;
 }
 
-export default class NewOnScreensPage extends React.Component<NewOnScreensPageProps, NewOnScreensPageState> {
+class NewOnScreensPage extends React.Component<NewOnScreensPageProps, NewOnScreensPageState> {
+
     constructor(props: NewOnScreensPageProps) {
         super(props);
-
         this.state = {
             properties: [],
             property: null,
         }
     }
 
-    componentDidMount = () => {
+    componentDidMount() {
         this.doGetShowTimeMovieList();
     }
 
     nextProperty = () => {
-        if (this.state.property === null) { return; };
+        if (this.state.property === null) { return };
         const newIndex = this.state.property.index === this.state.properties.length - 1 ? 0 : this.state.property.index + 1;
         this.setState({ property: this.state.properties[newIndex] });
     }
 
     prevProperty = () => {
-        if (this.state.property === null) { return; };
+        if (this.state.property === null) { return };
         const newIndex = this.state.property.index === 0 ? this.state.properties.length - 1 : this.state.property.index - 1;
         this.setState({ property: this.state.properties[newIndex] });
     }
@@ -143,3 +143,4 @@ export default class NewOnScreensPage extends React.Component<NewOnScreensPagePr
         );
     }
 }
+export default NewOnScreensPage;

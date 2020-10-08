@@ -12,20 +12,19 @@
         outline: 5px solid #0f1316;
     }
 
-    h1 {
-        padding: 25px 0;
-        font-weight: 900;
-    }
-
     &__content {
         position: absolute;
         top: 0;
         left: 0;
-
         padding: 84px 70px 30px 70px;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         grid-gap: 15px;
+    }
+
+    h1 {
+        padding: 25px 0;
+        font-weight: 900;
     }
 
     &__scrollbar {
@@ -46,7 +45,6 @@
         &::-webkit-scrollbar-thumb {
             background-color: var(--color-bg-yellow);
         }
-
         .force-overflow {
             min-height: 450px;
         }
@@ -63,5 +61,20 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         grid-gap: 15px;
+    }
+}
+
+@media only screen and (max-width: 1400px) {
+    .reviews {
+        &__content {
+            padding: 84px 10px 0 10px;
+        }
+    }
+}
+@media only screen and (max-width: 1023px) {
+    .reviews {
+        &__content {
+            grid-template-columns: auto;
+        }
     }
 }

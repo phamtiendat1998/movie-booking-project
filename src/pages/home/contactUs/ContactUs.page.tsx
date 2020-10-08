@@ -6,12 +6,10 @@ import './ContactUs.page.scss';
 import { TextareaAutosize, Input, FormControlLabel } from '@material-ui/core';
 import RadioGroup from '@material-ui/core/RadioGroup/RadioGroup';
 import Radio from '@material-ui/core/Radio/Radio';
-
 import SendIcon from '@material-ui/icons/Send';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 // Component
 import FooterComponent from '../../../common/footer/Footer.component';
-
 
 export interface ContactUsPageProps { }
 export interface ContactUsPageState {
@@ -26,6 +24,7 @@ export default class ContactUsPage extends React.Component<ContactUsPageProps, C
             tabStatus: 'support',
         }
     }
+    
     render = () => {
         let bindNavView;
         if (this.state.tabStatus === 'support') {

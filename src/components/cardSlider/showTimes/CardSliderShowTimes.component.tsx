@@ -3,33 +3,35 @@ import { NavLink } from 'react-router-dom';
 // Scss
 import './CardSliderShowTimes.component.scss';
 // Interface
-import { IntroMovie } from '../../core/interface/film/introFilm.class';
+import { IntroMovie } from '../../../core/interface/film/introFilm.class';
 // Mat
 import Icon from '@material-ui/core/Icon';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import EditIcon from '@material-ui/icons/Edit';
 // Services
-import { deleteMovie, getMovieDetail } from '../../core/services/movieManager.service';
+import { deleteMovie, getMovieDetail } from '../../../core/services/movieManager.service';
 //moment
 import moment from 'moment';
-import { useDispatch } from 'react-redux';
-import { deleteMovieAction } from '../../core/redux/actions/movieManager.action';
 
 export interface CardSliderProps {
     slider: IntroMovie;
     onOpenTrailer: (url: string) => void;
-    showTimes: [];
+    onOpenForm: (item: IntroMovie) => void;
+    onOpenAlert: () => void;
     isAdmin: boolean;
 }
 
 export default function CardSliderShowTimesComponent(props: CardSliderProps) {
-    const { slider, onOpenTrailer, showTimes, isAdmin } = props;
-    const [getShowTimes, setShowTimes] = React.useState<any>(showTimes);
-    const dispatch = useDispatch();
+    const { slider, onOpenTrailer, onOpenForm, onOpenAlert, isAdmin } = props;
+    const [getShowTimes, setShowTimes] = React.useState([]);
+
     const handleOpenTrailer = () => {
         onOpenTrailer(slider.trailerLink);
     };
 
+    const handleOpenForm = () => {
+        onOpenForm(slider);
+    }
     React.useEffect(() => {
         doGetMovieDetail();
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -40,31 +42,32 @@ export default function CardSliderShowTimesComponent(props: CardSliderProps) {
             .then(result => setShowTimes(result.data.heThongRapChieu[0].cumRapChieu[0].lichChieuPhim))
             .catch(err => console.log({ ...err }))
     }
-    const delItemMovie = () => {
+    const deleteItemMovie = () => {
         deleteMovie(slider._id)
             .then(res => {
-                dispatch(deleteMovieAction(res.data));
-                alert("Delete movie successful");
+                onOpenAlert();
+                window.location.reload();
             })
             .catch(err => {
                 console.log({ ...err });
             })
     }
 
-    const demo = () => {
-        console.log(slider);
-    }
 
     return (
         <div className="card-slider-showTimes">
             {isAdmin &&
-                <div>
-                    <button onClick={delItemMovie} className="card-delete-item">
-                        <DeleteForeverIcon />
-                    </button>
-                    <button onClick={demo} className="card-delete-item">
-                        <EditIcon />
-                    </button>
+                <div className="control">
+                    <div>
+                        <button onClick={deleteItemMovie}>
+                            <DeleteForeverIcon />
+                        </button>
+                    </div>
+                    <div>
+                        <button onClick={handleOpenForm}>
+                            <EditIcon />
+                        </button>
+                    </div>
                 </div>
 
             }

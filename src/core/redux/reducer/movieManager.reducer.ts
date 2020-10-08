@@ -1,30 +1,16 @@
-import {
-  ADD_MOVIE,
-  DELETE_MOVIE,
-  EDIT_MOVIE,
-} from "./../types/movieManager.types";
+import { GET_MOVIES } from "./../types/movieManager.types";
 
-let payload = "";
 const initialState = {
-  movie: payload,
+  movies: [],
 };
-
 const movieManagerReducer = (state = initialState, action: any = {}) => {
   switch (action.type) {
-    case ADD_MOVIE: {
-      state.movie = action.payload;
-      return { ...state };
-    }
-    case DELETE_MOVIE: {
-      state.movie = action.payload;
-      return { ...state };
-    }
-    case EDIT_MOVIE: {
-      state.movie = action.payload;
+    case GET_MOVIES: {
+      state.movies = action.payload;
       return { ...state };
     }
     default:
-      return { ...state };
+      return state;
   }
 };
 export default movieManagerReducer;

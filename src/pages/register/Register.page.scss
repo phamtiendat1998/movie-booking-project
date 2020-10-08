@@ -8,32 +8,19 @@
         height: 100%;
         object-fit: cover;
     }
-    // &__content {
-    //     position: absolute;
-    //     top: 0;
-    //     width: 100%;
-    //     height: 100%;
-    //     h1 {
-    //         color: black;
-    //         text-align: left;
-    //         margin-bottom: 28px;
-    //     }
-    //     form {
-    //         height: 650px;
-    //         width: 35%;
-    //         margin: 0 auto;
-    //         background-color: #fff;
-    //         padding: 60px 68px 40px;
-    //         .text-user,
-    //         .text-passWord,
-    //         .text-email,
-    //         .text-phoneNumber,
-    //         .text-group,
-    //         .text-groupID,
-    //         .text-fullName {
-    //             width: 100%;
-    //             padding-bottom: 16px;
-    //         }
-    //     }
-    // }
+}
+@media only screen and (max-width: 1440px) {
+    .makeStyles-paper-2 {
+        padding: 10px 60px 20px !important;
+        margin-top: 35px !important;
+    }
+}
+@media only screen and (max-width: 1024px) {
+    .MuiFormControl-marginNormal {
+        margin-top: 8px !important;
+    }
+    .MuiTypography-h3 {
+        font-size: 30px !important;
+    }
+    
 }

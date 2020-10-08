@@ -5,11 +5,11 @@ import './ComingSoon.page.scss';
 import { IntroMovie } from '../../../core/interface/film/introFilm.class';
 //Mat
 import { Icon } from '@material-ui/core';
-// Component
-import { TrailerDialogComponent } from '../../../components/trailerDialog/TrailerDialog.component';
-import CardSliderComingSoonComponent from '../../../components/cardSlider_ComingSoon/CardSliderComingSoon.component';
 // Services
 import { getComingSoonMovieList } from '../../../core/services/movieManager.service';
+// Component
+import { TrailerDialogComponent } from '../../../components/trailerDialog/TrailerDialog.component';
+import CardSliderComingSoonComponent from '../../../components/cardSlider/comingSoon/CardSliderComingSoon.component';
 
 export interface ComingSoonPagerops { }
 export interface ComingSoonPageState {
@@ -91,8 +91,6 @@ export default class ComingSoonPage extends React.Component<ComingSoonPagerops, 
 
     render = () => {
         const { properties, property, openTrailer, urlTrailer } = this.state;
-        console.log(this.state);
-
         return (
             property !== null &&
             <div className="comingsoon">

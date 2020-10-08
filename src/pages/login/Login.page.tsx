@@ -42,6 +42,7 @@ const LoginPage = (props: any) => {
     const { register, handleSubmit, errors } = useForm<UserLogin>({
         resolver: yupResolver(SignInSchema),
     });
+    
     const onSubmit = (data: UserLogin) => {
         postUserLogin(data)
             .then(res => {

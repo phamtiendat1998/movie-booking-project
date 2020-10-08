@@ -156,7 +156,7 @@ const RegisterPage = () => {
                         type="submit"
                         variant="contained"
                         color="primary"
-                        style={{ padding: "15px", margin: '16px 0 6px' }}
+                        style={{ padding: "15px", margin: '10px 0 6px' }}
                     >
                         Sign Up
                         </Button>

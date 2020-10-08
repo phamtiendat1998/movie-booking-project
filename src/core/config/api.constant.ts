@@ -8,4 +8,4 @@ export const bookSeatAPI = domain + "/QuanLyDatVe/LayDanhSachPhongVe";
 export const bookTicketAPI = domain + "/QuanLyDatVe/DatVe";
 export const addMovieAPI = domain + "/QuanLyPhim/ThemPhim";
 export const deleteMovieAPI = domain + "/QuanLyPhim/XoaPhim";
-export const editMovieAPI = domain + "/QuanLyPhim/CapNhatPhim";
+export const updateMovieAPI = domain + "/QuanLyPhim/CapNhatPhim";
