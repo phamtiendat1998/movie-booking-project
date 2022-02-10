@@ -19,7 +19,7 @@
     "axios": "^0.19.2",
     "material-ui-rating": "^4.0.0-beta.2",
     "moment": "^2.27.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "react": "^16.13.1",
     "react-alice-carousel": "^1.19.3",
     "react-bnb-gallery": "^1.4.4",
